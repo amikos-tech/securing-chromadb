@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "chroma-external-auth"
+version = "0.1.0"
+description = "ChromaDB Vector Store External Authentication Examples"
+authors = ["Trayan Azarov <trayan.azarov@amikos.tech>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "chroma_external_auth"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+chromadb-client = "^0.4.7.dev0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

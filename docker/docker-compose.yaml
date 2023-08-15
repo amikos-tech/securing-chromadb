@@ -1,0 +1,33 @@
+version: '3.9'
+name: secure-chroma
+networks:
+  net:
+    driver: bridge
+services:
+  nginx:
+    # Note : Only nginx:alpine supports bcrypt.
+    # If you don't need to use bcrypt, you can use a different tag.
+    # Ref. https://github.com/nginxinc/docker-nginx/issues/29
+    image: "nginx:alpine"
+    ports:
+      - 8443:443
+    links:
+      - chroma:chroma
+    volumes:
+      - ./auth:/etc/nginx/conf.d
+      - ./auth/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - net
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    volumes:
+      - index_data:/chroma/.chroma/index
+    ports:
+      - 8000:8000
+    networks:
+      - net
+volumes:
+  index_data:
+    driver: local
+  backups:
+    driver: local
